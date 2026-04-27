@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f7f2ec;font-family:'Cormorant Garamond',Georgia,serif;color:#202020;min-height:100vh}
+#qz{max-width:620px;margin:0 auto;padding:2rem 1rem 3rem}
+.screen{display:none}
+.screen.active{display:block}
+
+/* LOGO SVG */
+.logo-wrap{width:72px;height:72px;margin:0 auto 1.25rem;position:relative}
+.logo-wrap svg{width:72px;height:72px;overflow:visible}
+
+/* HEADER intro */
+.hdr{text-align:center;padding:1.5rem 0 .5rem;margin-bottom:1.5rem}
+.hdr-title{color:#75221c;font-size:28px;font-weight:600;line-height:1.25;margin-bottom:.3rem}
+.hdr-sub{color:#888;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-family:sans-serif}
+.brand-tag{display:inline-block;margin-top:.75rem;background:rgba(218,92,14,.1);border:0.5px solid rgba(218,92,14,.35);color:#da5c0e;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;font-family:sans-serif}
+
+/* INTRO CARD */
+.card{background:#fff;border:0.5px solid rgba(0,0,0,.09);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem}
+.intro-item{display:flex;gap:14px;align-items:flex-start;padding:1rem 0;border-bottom:0.5px solid rgba(0,0,0,.07)}
+.intro-item:last-child{border-bottom:none}
+.badge{min-width:30px;height:30px;border-radius:50%;background:#da5c0e;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:sans-serif;flex-shrink:0}
+.intro-item p{font-size:15px;color:#444;line-height:1.7}
+.intro-item strong{color:#202020;font-weight:600}
+
+/* PROGRESS */
+.prog-wrap{margin-bottom:1.5rem}
+.prog-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.prog-pillar{font-size:11px;font-weight:600;color:#da5c0e;text-transform:uppercase;letter-spacing:1px;font-family:sans-serif}
+.prog-count{font-size:12px;color:#aaa;font-family:sans-serif}
+.prog-bar{height:3px;background:rgba(218,92,14,.15);border-radius:2px}
+.prog-fill{height:3px;background:#da5c0e;border-radius:2px;transition:width .4s ease}
+
+.q-text{font-size:21px;font-weight:600;color:#202020;line-height:1.5;margin-bottom:1.75rem}
+
+/* OPTIONS */
+.opt{display:flex;align-items:flex-start;gap:14px;padding:13px 16px;border:1px solid rgba(0,0,0,.1);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:all .18s;background:#fff}
+.opt:hover{border-color:#da5c0e;background:#fdf6f0}
+.opt.selected{border-color:#da5c0e;background:#fdf6f0}
+.opt-letter{min-width:28px;height:28px;border-radius:50%;border:1px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#999;transition:all .18s;font-family:sans-serif;flex-shrink:0;margin-top:2px}
+.opt.selected .opt-letter{background:#da5c0e;border-color:#da5c0e;color:#fff}
+.opt-text{font-size:15px;color:#202020;line-height:1.55}
+
+/* BUTTONS */
+.btn-primary{width:100%;padding:14px;background:#da5c0e;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:sans-serif;cursor:pointer;margin-top:1.25rem;letter-spacing:.3px;transition:opacity .15s}
+.btn-primary:hover{opacity:.88}
+.btn-primary:disabled{opacity:.32;cursor:default}
+.btn-ghost{width:100%;padding:13px;background:transparent;color:#da5c0e;border:1.5px solid #da5c0e;border-radius:10px;font-size:15px;font-weight:600;font-family:sans-serif;cursor:pointer;margin-top:.75rem;transition:background .15s}
+.btn-ghost:hover{background:rgba(218,92,14,.07)}
+
+/* RESULT PAGE — fundo creme */
+#s-result{background:#f2e3d0;border-radius:16px;padding:1.5rem;color:#202020}
+.result-logo-wrap{text-align:center;margin-bottom:1rem}
+.result-brand{font-size:22px;font-weight:600;color:#202020;letter-spacing:.3px;margin-top:.5rem}
+.result-tagline{font-size:11px;color:#75221c;letter-spacing:2.5px;text-transform:uppercase;font-family:sans-serif}
+.perfil-badge{display:inline-block;background:rgba(218,92,14,.15);border:0.5px solid rgba(218,92,14,.4);color:#da5c0e;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;border-radius:20px;font-family:sans-serif;margin:1rem 0 .5rem}
+.result-title{font-size:22px;font-weight:600;color:#202020}
+.result-sub{font-size:15px;color:#444;line-height:1.65;margin-top:.5rem;font-family:sans-serif;font-weight:400}
+.score-grid{display:flex;gap:10px;justify-content:center;margin:1.25rem 0}
+.dot{width:58px;padding:8px 0;border-radius:10px;border:1px solid rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;background:#fff}
+.dot.answered{background:#202020;border-color:#202020}
+.dot-ltr{font-size:11px;font-weight:600;color:#aaa;font-family:sans-serif;letter-spacing:.5px}
+.dot.answered .dot-ltr{color:#da5c0e}
+.dot-num{font-size:18px;font-weight:600;color:#ccc;font-family:sans-serif}
+.dot.answered .dot-num{color:#fff}
+.result-card{background:#fff;border-radius:14px;padding:1.5rem;margin-bottom:1rem;border:0.5px solid rgba(0,0,0,.08)}
+.steps-label{font-size:11px;font-weight:600;color:#da5c0e;text-transform:uppercase;letter-spacing:1px;font-family:sans-serif;margin-bottom:.85rem}
+.step-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:.85rem}
+.step-dot{min-width:7px;height:7px;border-radius:50%;background:#da5c0e;margin-top:8px;flex-shrink:0}
+.step-text{font-size:15px;color:#202020;line-height:1.55}
+.conclusion{background:#202020;color:#f2e3d0;border-radius:10px;padding:1rem 1.25rem;margin-top:1rem;font-size:16px;font-weight:600;font-style:italic;line-height:1.5;text-align:center}
+
+/* FOOTER */
+.footer{text-align:center;padding:1.5rem 0 .5rem;border-top:0.5px solid rgba(0,0,0,.1);margin-top:1.25rem}
+.footer-brand{font-size:22px;font-weight:600;color:#202020}
+.footer-tagline{font-size:10px;color:#75221c;letter-spacing:2.5px;text-transform:uppercase;font-family:sans-serif;margin-top:2px;margin-bottom:.75rem}
+.footer a{display:block;font-size:13px;color:#da5c0e;text-decoration:none;line-height:2.1;font-family:sans-serif}
+.footer a:hover{color:#75221c}
+</style>
+</head>
+<body>
+<div id="qz">
+
+<!-- INTRO -->
+<div class="screen active" id="s-intro">
+  <div class="hdr">
+    <div class="hdr-title">Teste seu nível de prontidão</div>
+    <div class="hdr-sub">Gestão da sua transição de carreira</div>
+    <div class="brand-tag">RebrandSe · Curadoria de Caminhos</div>
+  </div>
+  <div class="card">
+    <div class="intro-item">
+      <div class="badge">01</div>
+      <p><strong>Introdução:</strong> Este é um diagnóstico rápido para mapear o seu nível de prontidão para gerir a própria transição de carreira. As respostas vão ajudar você a enxergar com mais objetividade onde está e o que precisa ajustar para avançar.</p>
+    </div>
+    <div class="intro-item">
+      <div class="badge">02</div>
+      <p><strong>Estrutura:</strong> O diagnóstico é composto por perguntas objetivas e leva cerca de 5 minutos para ser concluído. Não existem respostas certas ou erradas. O valor está na honestidade das suas respostas.</p>
+    </div>
+    <div class="intro-item">
+      <div class="badge">03</div>
+      <p><strong>Lembretes:</strong> Responda com base na sua realidade atual, não no cenário ideal. Ao final, você receberá um direcionamento com base no seu perfil, além de próximos passos recomendados.</p>
+    </div>
+  </div>
+  <button class="btn-primary" onclick="goQ(0)">Vamos começar →</button>
+</div>
+
+<!-- PERGUNTAS -->
+<div class="screen" id="s-quiz">
+  <div class="prog-wrap">
+    <div class="prog-label">
+      <span class="prog-pillar" id="q-pillar"></span>
+      <span class="prog-count" id="q-num"></span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog" style="width:20%"></div></div>
+  </div>
+  <div class="q-text" id="q-text"></div>
+  <div id="opts"></div>
+  <button class="btn-primary" id="btn-next" disabled onclick="nextQ()">Próxima →</button>
+</div>
+
+<!-- RESULTADO -->
+<div class="screen" id="s-result">
+  <div class="result-logo-wrap">
+    <div class="result-brand">RebrandSe</div>
+    <div class="result-tagline">Curadoria de Caminhos</div>
+    <div class="perfil-badge" id="r-badge"></div>
+    <div class="result-title" id="r-title"></div>
+    <div class="result-sub" id="r-sub"></div>
+  </div>
+
+  <div class="score-grid" id="score-dots"></div>
+
+  <div class="result-card">
+    <div class="steps-label">Próximos passos recomendados</div>
+    <div id="r-steps"></div>
+    <div class="conclusion" id="r-conclusion"></div>
+  </div>
+
+  <div class="footer">
+    <p style="font-size:13px;font-weight:600;color:#202020;font-family:sans-serif;margin-bottom:.5rem">Siga-nos nas redes sociais:</p>
+    <a href="https://instagram.com/rebrandse.curadoria">@rebrandse.curadoria</a>
+    <a href="https://linkedin.com/company/rebrandse">linkedin.com/company/rebrandse</a>
+    <p style="font-size:13px;font-weight:600;color:#202020;font-family:sans-serif;margin-top:1rem;margin-bottom:.5rem">Quer saber mais, envie e-mail para:</p>
+    <a href="mailto:Rebrandse.curadoria@gmail.com">Rebrandse.curadoria@gmail.com</a>
+    <button class="btn-ghost" style="margin-top:1.25rem" onclick="restart()">Refazer o diagnóstico</button>
+  </div>
+</div>
+
+</div>
+<script>
+const qs=[
+  {pillar:"Autoconhecimento",text:"Hoje, o quanto você tem clareza sobre o valor que entrega e os problemas que sabe resolver?",opts:["Tenho clareza total e consigo explicar com segurança","Tenho alguma clareza, mas ainda não estruturei bem","Tenho dificuldade em explicar meu valor","Não sei exatamente qual é o meu diferencial"]},
+  {pillar:"Repertório",text:"Sobre seu próximo passo profissional, qual cenário melhor descreve você hoje?",opts:["Tenho um caminho definido e faz sentido para mim","Tenho algumas possibilidades, mas estou avaliando","Estou confuso entre várias opções","Não faço ideia de qual caminho seguir"]},
+  {pillar:"Planejamento financeiro",text:"Sua estrutura financeira hoje permite uma transição com segurança?",opts:["Sim, tenho planejamento e previsibilidade","Tenho alguma reserva, mas com limitações","Estou exposto a riscos financeiros","Não tenho estrutura para sustentar uma mudança"]},
+  {pillar:"Ferramentas · IA | LinkedIn | Currículo",text:"O quanto você está atualizado e preparado para as exigências atuais do mercado?",opts:["Estou atualizado e me desenvolvendo continuamente","Busco atualização de forma pontual","Estou defasado em algumas competências","Estou desatualizado em relação ao mercado"]},
+  {pillar:"Marca e presença",text:"Como você se posiciona e se torna visível para o mercado hoje?",opts:["De forma estratégica e consistente","De forma pontual","De forma reativa","Não me posiciono"]}
+];
+const profiles={
+  A:{badge:"Perfil A",label:"Estruturado",sub:"Você já tem clareza sobre seu valor, direção e posicionamento. Atenção ao refinamento estratégico.",steps:["Ajustar posicionamento para ganhar tração no mercado","Aumentar consistência de presença e visibilidade","Transformar movimento em resultado concreto"],conclusion:"Você não precisa fazer mais. Precisa fazer melhor."},
+  B:{badge:"Perfil B",label:"Em evolução",sub:"Você já começou a estruturar sua transição, mas ainda há lacunas importantes. O risco aqui é avançar sem consistência e perder energia no caminho.",steps:["Organizar sua proposta de valor","Definir com mais clareza o caminho a seguir","Estruturar um plano de ação consistente"],conclusion:"Você já começou. Agora precisa organizar."},
+  C:{badge:"Perfil C",label:"Desorganizado",sub:"Você tem experiência, mas não conseguiu transformar isso em direção clara ainda. O risco aqui é ficar preso em tentativa e erro.",steps:["Estruturar seu autoconhecimento de forma estratégica","Reduzir dispersão e escolher um caminho viável","Começar a construir posicionamento com intenção"],conclusion:"Experiência sem direção não vira movimento."},
+  D:{badge:"Perfil D",label:"Travado",sub:"Você ainda não tem clareza sobre seu valor, caminho ou próximos passos. O risco aqui é permanecer parado ou tomar decisões por pressão externa.",steps:["Construir clareza sobre quem você é profissionalmente","Entender possibilidades reais de caminho","Criar base mínima para iniciar qualquer movimento"],conclusion:"Antes de agir, você precisa entender."}
+};
+let cur=0,answers=[];
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+function goQ(i){
+  cur=i;const q=qs[i];
+  document.getElementById('q-pillar').textContent='#'+(i+1)+' — '+q.pillar;
+  document.getElementById('q-num').textContent=(i+1)+' / '+qs.length;
+  document.getElementById('q-text').textContent=q.text;
+  const letters=['A','B','C','D'],opts=document.getElementById('opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,j)=>{
+    const d=document.createElement('div');
+    d.className='opt'+(answers[i]===j?' selected':'');
+    d.innerHTML=`<div class="opt-letter">${letters[j]}</div><div class="opt-text">${o}</div>`;
+    d.onclick=()=>selectOpt(j);opts.appendChild(d);
+  });
+  document.getElementById('prog').style.width=Math.round(((i+1)/qs.length)*100)+'%';
+  const btn=document.getElementById('btn-next');
+  btn.disabled=answers[i]===undefined;
+  btn.textContent=i===qs.length-1?'Ver meu resultado →':'Próxima →';
+  show('s-quiz');
+}
+function selectOpt(j){
+  answers[cur]=j;
+  document.querySelectorAll('.opt').forEach((o,k)=>o.classList.toggle('selected',k===j));
+  document.getElementById('btn-next').disabled=false;
+}
+function nextQ(){if(cur<qs.length-1)goQ(cur+1);else showResult()}
+function showResult(){
+  const counts={0:0,1:0,2:0,3:0};
+  answers.forEach(a=>counts[a]++);
+  const max=Math.max(...Object.values(counts));
+  const winIdx=+Object.keys(counts).find(k=>counts[k]===max);
+  const key=['A','B','C','D'][winIdx],p=profiles[key];
+  document.getElementById('r-badge').textContent=p.badge;
+  document.getElementById('r-title').textContent=p.badge+' — '+p.label;
+  document.getElementById('r-sub').textContent=p.sub;
+  const dots=document.getElementById('score-dots');dots.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(counts[i]>0?' answered':'');
+    d.innerHTML=`<div class="dot-ltr">${l}</div><div class="dot-num">${counts[i]}</div>`;
+    dots.appendChild(d);
+  });
+  document.getElementById('r-steps').innerHTML=p.steps.map(s=>`<div class="step-item"><div class="step-dot"></div><div class="step-text">${s}</div></div>`).join('');
+  document.getElementById('r-conclusion').textContent='"'+p.conclusion+'"';
+  show('s-result');
+}
+function restart(){answers=[];goQ(0)}
+</script>
+</body>
+</html>
